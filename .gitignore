@@ -1,0 +1,11 @@
+build/
+output/
+cache/
+*.pdb
+*.lib
+*.dll
+*.exe
+__pycache__/
+*_settings.json
+*_presets.json
+*_diag.json
