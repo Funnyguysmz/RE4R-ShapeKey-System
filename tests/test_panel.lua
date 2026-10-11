@@ -250,5 +250,25 @@ for i = 1, 12 do SNAP.sequence = SNAP.sequence + 1; SNAP.values = {eyeBlinkLeft 
 check(math.abs(weights[blink_ch] - 0.1) < 0.02, 'source 5 uses capture again when it resumes (got ' .. tostring(weights[blink_ch]) .. ')')
 SNAP.running = false; frame_tick(1); draw()
 check(seen_has('接收器未启动'), 'receiver-stopped status shown')
+-- 0.4.4 api: cap_smooth get/set
+do
+    local api = rawget(_G, 'RE4R_ShapeKeySystem_api')
+    check(api.version == '0.4.4', 'api.version 0.4.4 (got ' .. tostring(api.version) .. ')')
+    check(math.abs(api.get_cap_smooth() - 0.5) < 1e-9, 'cap_smooth default 0.5 (got ' .. tostring(api.get_cap_smooth()) .. ')')
+    check(api.set_cap_smooth(0.8) == true and math.abs(api.get_cap_smooth() - 0.8) < 1e-9, 'set_cap_smooth 0.8')
+    api.set_cap_smooth(5); check(api.get_cap_smooth() == 1, 'set_cap_smooth clamps high to 1')
+    api.set_cap_smooth(-1); check(api.get_cap_smooth() == 0.05, 'set_cap_smooth clamps low to 0.05')
+    api.set_cap_smooth(0.3)
+    check(api.set_cap_smooth(0/0) == false and api.set_cap_smooth(math.huge) == false and api.set_cap_smooth('x') == false and api.set_cap_smooth(nil) == false,
+        'set_cap_smooth rejects NaN/inf/non-number')
+    check(math.abs(api.get_cap_smooth() - 0.3) < 1e-9, 'rejected values leave setting unchanged')
+    frame_tick(70)
+    check(files['RE4R_ShapeKeySystem_settings.json'].cap_smooth == 0.3, 'API smoothing value persists to settings')
+    actions['表情##sks_tab1'] = true; draw()
+    actions['面捕跟随速度（越小越平滑）##sks_csm'] = 0.65; draw()
+    check(api.get_cap_smooth() == 0.65, 'panel slider updates the API smoothing value')
+    frame_tick(70)
+    check(files['RE4R_ShapeKeySystem_settings.json'].cap_smooth == 0.65, 'panel smoothing value persists to settings')
+end
 print(string.format('PANEL_TESTS %d passed, %d failed', pass, fail))
 if fail > 0 then os.exit(1) end

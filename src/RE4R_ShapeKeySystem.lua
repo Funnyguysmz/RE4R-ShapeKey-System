@@ -1,9 +1,9 @@
--- RE4R ShapeKey System / 形态键系统 0.3.0 (Claude)
+-- RE4R ShapeKey System / 形态键系统 0.4.4 (Claude)
 -- Drives the custom shape-key channels of a character mod's head mesh. The mod ships
 -- reframework/data/RE4R_ShapeKeySystem_profile.json (key ids, hashes, labels, regions).
 -- Channels are bound by engine name hash, never by index. Native Leon channels in the same mesh
 -- (zero-delta "taps") are only read, never written.
-local VERSION = '0.4.3'
+local VERSION = '0.4.4'
 local DIAG_FILE = 'RE4R_ShapeKeySystem_diag.json'
 local PROFILE_FILE = 'RE4R_ShapeKeySystem_profile.json'
 local SETTINGS_FILE = 'RE4R_ShapeKeySystem_settings.json'
@@ -905,7 +905,7 @@ re.on_frame(function()
     if open == false then S.show_window = false; touch_settings() end
 end)
 
--- 0.4.3 public interface for other REFramework scripts (e.g. the desktop GUI bridge):
+-- 0.4.4 public interface for other REFramework scripts (e.g. the desktop GUI bridge):
 --   local api = rawget(_G, 'RE4R_ShapeKeySystem_api')
 --   api.mesh_status()            -> { {index, name, channels, weight_count, weight_list, limit, ready}, ... } (index 1 = head)
 --   api.allocate_weights(i)      -> number of meshes now sized; i = mesh index (> 1), nil = all body / hair meshes
@@ -931,6 +931,13 @@ RE4R_ShapeKeySystem_api = {
     end,
     get_auto_allocate = function() return S.auto_alloc end,
     set_auto_allocate = function(v) S.auto_alloc = v and true or false; touch_settings() end,
+    -- 0.4.4: capture smoothing (EMA factor per RhyLive sample, 0.05..1; higher = more responsive)
+    get_cap_smooth = function() return S.cap_smooth end,
+    set_cap_smooth = function(v)
+        v = tonumber(v)
+        if not v or v ~= v or v == math.huge or v == -math.huge then return false end
+        S.cap_smooth = math.max(0.05, math.min(1, v)); touch_settings(); return true
+    end,
 }
 
 load_profile()
