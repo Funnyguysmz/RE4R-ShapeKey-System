@@ -12,9 +12,9 @@ This is the contract between a character mod and the ShapeKey System panel. The 
 <game>/reframework/data/RE4R_ShapeKeySystem_profile.json
 ```
 
-(UTF-8 JSON, loaded with REFramework's `json.load_file`). It describes which blend-shape channels the mod's meshes carry, how to label and group them, and how ARKit values (from native animation or face capture) drive them. This document describes what panel **0.4.4** actually reads (`load_profile` and the code that uses its result). The desktop Studio reads the same keys through the panel's bridge.
+(UTF-8 JSON, loaded with REFramework's `json.load_file`). It describes which blend-shape channels the mod's meshes carry, how to label and group them, and how ARKit values (from native animation or face capture) drive them. This document describes what panel **0.4.5-rc.1** actually reads (`load_profile` and the code that uses its result). The desktop Studio reads the same keys through the panel's bridge.
 
-> Writing shape keys into an RE4 `.mesh` file currently needs tooling that is **not yet public**. This document only specifies the profile that must accompany such a mesh.
+> Public export tooling: [derived RE Mesh Editor](https://github.com/Funnyguysmz/RE-Mesh-Editor-BlendShape). This document specifies the model-owned profile; optional `native_map_file` and subset receivers are described in [MOUTH9_TEST.md](MOUTH9_TEST.md).
 
 ### 1. Top-level fields
 
@@ -22,6 +22,7 @@ This is the contract between a character mod and the ShapeKey System panel. The 
 |---|---|---|---|---|
 | `keys` | **required** | array | panel | The list of keys (section 2). If the file is missing or `keys` is not an array, the panel shows "profile not found" and stays idle. |
 | `regions` | optional (recommended) | array of `{id, label}` | panel | Regions that get a strength slider on the expression page, in this order. `id` and `label` must be strings. Keys whose `region` is not declared still work (gain 1.0) but get no slider. |
+| `native_map_file` | optional | JSON basename | panel | Select a bundled/custom native table in reframework/data; omitted = legacy default, explicit missing = error. See [maps](MOUTH9_TEST.md). |
 | `native_taps` | optional | array of `{name, hash}` | panel | Zero-delta channels already present in the head mesh (Leon's original `Face__geo__p000_cbs.crct_*` names). They are only **read** (to show native activity and for tap-based conversion rules), never written. `hash` is the hash of `name` (section 3). Only looked up on the head mesh. Omit if your mesh has none. |
 | `title` | optional | string | panel | Shown in the panel header and status line. Falls back to `model`, then `?`. |
 | `model` | optional | string | panel | Short model id; fallback for `title`. |
@@ -97,10 +98,10 @@ Naming conventions (not enforced by the panel, but recommended): ASCII only; pre
 
 Weight array: for a bound mesh the engine must hold a weight array at least as long as the highest channel the panel writes to. Leon's head allocates it by itself; **body and hair meshes do not** (WeightCount stays 0), so the panel (0.4.3+) sizes them to the channel count when the engine's managed weight list already holds every channel. Writes beyond the array are blocked by the panel (an unprotected out-of-range write crashed the game in an early test). See [API.md](API.md).
 
-Mesh-side facts that affect game behaviour (the tooling that writes them is not public):
+Mesh-side facts that affect game behaviour:
 
 - Shape keys only work on LOD0; the panel forces `LodLevel = 0` while driving.
-- For meshes that carry shape keys the engine recomputes normals, so toon (cylindrical) normals are lost unless the mod uses a workaround (tiny "fin" triangles per vertex was accepted in game on one mod; it costs mesh size).
+- Recalc layouts may recompute authored normals. Native no-recalc + normal records are now supported by the derived exporter for a specified base normal direction. The standalone 85-channel experiment was accepted by the user; integrated 94-channel output and arbitrary per-expression normal mixing remain unverified. Earlier fin workaround acceptance remains historical, not the only route.
 - A head mesh in the reference layout keeps Leon's 91 original channel names as zero-delta "taps" at indices 0..90 and appends the custom keys after them. The panel does not require this layout; it binds by hash.
 
 ### 4. Regions and GUI tabs
@@ -239,9 +240,9 @@ Three keys: one ARKit-library key (1:1), one retargeted key, one manual-only bod
 <游戏目录>/reframework/data/RE4R_ShapeKeySystem_profile.json
 ```
 
-（UTF-8 JSON，由 REFramework 的 `json.load_file` 读取）。它描述 MOD 网格里有哪些 blend shape 通道、如何命名和分组，以及 ARKit 数值（来自原生动画或面捕）如何驱动它们。下文以面板 **0.4.4** 实际读取的内容为准；桌面 Studio 通过面板的桥接读取同一批键。
+（UTF-8 JSON，由 REFramework 的 `json.load_file` 读取）。它描述 MOD 网格里有哪些 blend shape 通道、如何命名和分组，以及 ARKit 数值（来自原生动画或面捕）如何驱动它们。下文以面板 **0.4.5-rc.1** 实际读取的内容为准；桌面 Studio 通过面板的桥接读取同一批键。
 
-> 把形态键写进 RE4 `.mesh` 目前需要**尚未公开**的工具。本文只规定必须随网格一起提供的配置文件。
+> 可使用公开[派生 RE Mesh Editor](https://github.com/Funnyguysmz/RE-Mesh-Editor-BlendShape)导出。本文规定模型自带配置；可选 `native_map_file` 和子集接收口见 [MOUTH9_TEST.md](MOUTH9_TEST.md)。
 
 ### 1. 顶层字段
 
@@ -295,10 +296,10 @@ Three keys: one ARKit-library key (1:1), one retargeted key, one manual-only bod
 
 权重数组：被绑定的网格，引擎持有的权重数组长度必须不小于面板要写的最大通道号。里昂头部会自己分配；**身体和头发网格不会**（WeightCount 保持 0），所以面板（0.4.3 起）会在引擎的托管权重列表已装满全部通道时把数量设成通道数。越界写入会被面板拦下（早期测试中无保护的越界写入曾让游戏崩溃）。见 [API.md](API.md)。
 
-影响游戏表现的网格侧事实（写入这些数据的工具尚未公开）：
+影响游戏表现的网格侧事实：
 
 - 形态键只在 LOD0 生效，面板驱动时会强制 `LodLevel = 0`。
-- 带形态键的网格，引擎会重算法线，三渲二（柱面）法线会丢失，除非 MOD 采用变通办法（给每个顶点加极小“鳍片”三角形的做法已在一个 MOD 上实机通过，代价是网格体积变大）。
+- recalc 布局可能重算制作的法线。派生导出器现支持原生 no-recalc＋法线记录并指定基础法线方向。独立85通道实验获用户认可；新94通道组合和任意逐表情法线混合仍待验证。早期鳍片验收作为历史保留，并非唯一路线。
 - 参考版式的头部网格把里昂原版 91 个通道名作为零位移 tap 放在 0..90 号，自定义键追加在其后。面板并不要求这一版式，只按哈希绑定。
 
 ### 4. 区域与 GUI 标签页

@@ -1,4 +1,6 @@
-# RE4R_ShapeKeySystem public API (0.4.4)
+# RE4R_ShapeKeySystem public API (0.4.5-rc.1)
+
+New: native_tap_status() and native_map_status(); mesh_status().ready requires all effective bounds. Existing APIs retained. See [receiver states and mapping selection](MOUTH9_TEST.md). 新增逐口诊断和映射状态；旧接口保留。
 
 [English](#english) | [中文](#中文)
 

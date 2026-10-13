@@ -1,0 +1,907 @@
+{
+  "format": 1,
+  "model": "SyntheticDemo",
+  "title": "Synthetic demo (not a model)",
+  "native_map_file": "RE4R_ShapeKeySystem_native_leon_mouth9.json",
+  "regions": [
+    {
+      "id": "mouth",
+      "label": "Mouth"
+    }
+  ],
+  "native_taps": [
+    {
+      "name": "Face__geo__p000_cbs.crct_jaw_openExtreme",
+      "hash": 979930143
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_purse_L_U",
+      "hash": 569987041
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_purse_L_D",
+      "hash": 1906228235
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_purse_R_U",
+      "hash": 2223560987
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_purse_R_D",
+      "hash": 3028872036
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_funnel_L_U",
+      "hash": 145959663
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_funnel_L_D",
+      "hash": 1182721464
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_funnel_R_U",
+      "hash": 413915709
+    },
+    {
+      "name": "Face__geo__p000_cbs.crct_mouth_funnel_R_D",
+      "hash": 1442707698
+    }
+  ],
+  "keys": [
+    {
+      "id": "SK__mmd.demo00",
+      "hash": 614096778,
+      "label": "Demo 00",
+      "name": "demo00",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": [
+        [
+          "jawOpen",
+          0.9
+        ]
+      ]
+    },
+    {
+      "id": "SK__mmd.demo01",
+      "hash": 407486051,
+      "label": "Demo 01",
+      "name": "demo01",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo02",
+      "hash": 1511874541,
+      "label": "Demo 02",
+      "name": "demo02",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo03",
+      "hash": 2319585413,
+      "label": "Demo 03",
+      "name": "demo03",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo04",
+      "hash": 1159789856,
+      "label": "Demo 04",
+      "name": "demo04",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo05",
+      "hash": 3619655189,
+      "label": "Demo 05",
+      "name": "demo05",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo06",
+      "hash": 723969334,
+      "label": "Demo 06",
+      "name": "demo06",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo07",
+      "hash": 1796499190,
+      "label": "Demo 07",
+      "name": "demo07",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo08",
+      "hash": 98530138,
+      "label": "Demo 08",
+      "name": "demo08",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo09",
+      "hash": 1297830694,
+      "label": "Demo 09",
+      "name": "demo09",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo10",
+      "hash": 2140561743,
+      "label": "Demo 10",
+      "name": "demo10",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo11",
+      "hash": 1810525874,
+      "label": "Demo 11",
+      "name": "demo11",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo12",
+      "hash": 148359936,
+      "label": "Demo 12",
+      "name": "demo12",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo13",
+      "hash": 3499427170,
+      "label": "Demo 13",
+      "name": "demo13",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo14",
+      "hash": 1316921346,
+      "label": "Demo 14",
+      "name": "demo14",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo15",
+      "hash": 251299934,
+      "label": "Demo 15",
+      "name": "demo15",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo16",
+      "hash": 1311318082,
+      "label": "Demo 16",
+      "name": "demo16",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo17",
+      "hash": 796314739,
+      "label": "Demo 17",
+      "name": "demo17",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo18",
+      "hash": 3764178722,
+      "label": "Demo 18",
+      "name": "demo18",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo19",
+      "hash": 3185020389,
+      "label": "Demo 19",
+      "name": "demo19",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo20",
+      "hash": 4035786808,
+      "label": "Demo 20",
+      "name": "demo20",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo21",
+      "hash": 2745429589,
+      "label": "Demo 21",
+      "name": "demo21",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo22",
+      "hash": 2102224447,
+      "label": "Demo 22",
+      "name": "demo22",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo23",
+      "hash": 2042712254,
+      "label": "Demo 23",
+      "name": "demo23",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo24",
+      "hash": 771317811,
+      "label": "Demo 24",
+      "name": "demo24",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo25",
+      "hash": 2315949057,
+      "label": "Demo 25",
+      "name": "demo25",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo26",
+      "hash": 2888943967,
+      "label": "Demo 26",
+      "name": "demo26",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo27",
+      "hash": 2020566726,
+      "label": "Demo 27",
+      "name": "demo27",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo28",
+      "hash": 238535875,
+      "label": "Demo 28",
+      "name": "demo28",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo29",
+      "hash": 28078594,
+      "label": "Demo 29",
+      "name": "demo29",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo30",
+      "hash": 182258399,
+      "label": "Demo 30",
+      "name": "demo30",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo31",
+      "hash": 2827506715,
+      "label": "Demo 31",
+      "name": "demo31",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo32",
+      "hash": 3979503173,
+      "label": "Demo 32",
+      "name": "demo32",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo33",
+      "hash": 2200265988,
+      "label": "Demo 33",
+      "name": "demo33",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo34",
+      "hash": 4145458044,
+      "label": "Demo 34",
+      "name": "demo34",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo35",
+      "hash": 2177344494,
+      "label": "Demo 35",
+      "name": "demo35",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo36",
+      "hash": 383050353,
+      "label": "Demo 36",
+      "name": "demo36",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo37",
+      "hash": 1758707848,
+      "label": "Demo 37",
+      "name": "demo37",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo38",
+      "hash": 1691854771,
+      "label": "Demo 38",
+      "name": "demo38",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo39",
+      "hash": 4144350623,
+      "label": "Demo 39",
+      "name": "demo39",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo40",
+      "hash": 1616409041,
+      "label": "Demo 40",
+      "name": "demo40",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo41",
+      "hash": 3923645942,
+      "label": "Demo 41",
+      "name": "demo41",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo42",
+      "hash": 353431346,
+      "label": "Demo 42",
+      "name": "demo42",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo43",
+      "hash": 3306875919,
+      "label": "Demo 43",
+      "name": "demo43",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo44",
+      "hash": 2747139770,
+      "label": "Demo 44",
+      "name": "demo44",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo45",
+      "hash": 2405909395,
+      "label": "Demo 45",
+      "name": "demo45",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo46",
+      "hash": 2002561426,
+      "label": "Demo 46",
+      "name": "demo46",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo47",
+      "hash": 2431743933,
+      "label": "Demo 47",
+      "name": "demo47",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo48",
+      "hash": 857496146,
+      "label": "Demo 48",
+      "name": "demo48",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo49",
+      "hash": 2343668943,
+      "label": "Demo 49",
+      "name": "demo49",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo50",
+      "hash": 3035291413,
+      "label": "Demo 50",
+      "name": "demo50",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo51",
+      "hash": 3927090323,
+      "label": "Demo 51",
+      "name": "demo51",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo52",
+      "hash": 1292095172,
+      "label": "Demo 52",
+      "name": "demo52",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo53",
+      "hash": 2319834815,
+      "label": "Demo 53",
+      "name": "demo53",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo54",
+      "hash": 88606396,
+      "label": "Demo 54",
+      "name": "demo54",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo55",
+      "hash": 3399842197,
+      "label": "Demo 55",
+      "name": "demo55",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo56",
+      "hash": 4054494446,
+      "label": "Demo 56",
+      "name": "demo56",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo57",
+      "hash": 1149883254,
+      "label": "Demo 57",
+      "name": "demo57",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo58",
+      "hash": 2328068865,
+      "label": "Demo 58",
+      "name": "demo58",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo59",
+      "hash": 1975603155,
+      "label": "Demo 59",
+      "name": "demo59",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo60",
+      "hash": 236823102,
+      "label": "Demo 60",
+      "name": "demo60",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo61",
+      "hash": 3939287222,
+      "label": "Demo 61",
+      "name": "demo61",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo62",
+      "hash": 91270595,
+      "label": "Demo 62",
+      "name": "demo62",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo63",
+      "hash": 4032925568,
+      "label": "Demo 63",
+      "name": "demo63",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo64",
+      "hash": 1597191479,
+      "label": "Demo 64",
+      "name": "demo64",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo65",
+      "hash": 1159937152,
+      "label": "Demo 65",
+      "name": "demo65",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo66",
+      "hash": 3301782206,
+      "label": "Demo 66",
+      "name": "demo66",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo67",
+      "hash": 4282223800,
+      "label": "Demo 67",
+      "name": "demo67",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo68",
+      "hash": 3880678332,
+      "label": "Demo 68",
+      "name": "demo68",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo69",
+      "hash": 1236702187,
+      "label": "Demo 69",
+      "name": "demo69",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo70",
+      "hash": 1642896636,
+      "label": "Demo 70",
+      "name": "demo70",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo71",
+      "hash": 538489306,
+      "label": "Demo 71",
+      "name": "demo71",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo72",
+      "hash": 2224171428,
+      "label": "Demo 72",
+      "name": "demo72",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo73",
+      "hash": 1994154868,
+      "label": "Demo 73",
+      "name": "demo73",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo74",
+      "hash": 942842601,
+      "label": "Demo 74",
+      "name": "demo74",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo75",
+      "hash": 1423863991,
+      "label": "Demo 75",
+      "name": "demo75",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo76",
+      "hash": 4085562790,
+      "label": "Demo 76",
+      "name": "demo76",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo77",
+      "hash": 2352544013,
+      "label": "Demo 77",
+      "name": "demo77",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo78",
+      "hash": 1634097526,
+      "label": "Demo 78",
+      "name": "demo78",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo79",
+      "hash": 3512235730,
+      "label": "Demo 79",
+      "name": "demo79",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo80",
+      "hash": 3725994188,
+      "label": "Demo 80",
+      "name": "demo80",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo81",
+      "hash": 3242552192,
+      "label": "Demo 81",
+      "name": "demo81",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo82",
+      "hash": 650435848,
+      "label": "Demo 82",
+      "name": "demo82",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo83",
+      "hash": 1690541701,
+      "label": "Demo 83",
+      "name": "demo83",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    },
+    {
+      "id": "SK__mmd.demo84",
+      "hash": 2464913694,
+      "label": "Demo 84",
+      "name": "demo84",
+      "library": "MMD",
+      "group": "Demo",
+      "region": "mouth",
+      "arkit": []
+    }
+  ]
+}

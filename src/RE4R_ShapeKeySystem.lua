@@ -1,9 +1,9 @@
--- RE4R ShapeKey System / 形态键系统 0.4.4 (Claude)
+-- RE4R ShapeKey System / 形态键系统 0.4.5-rc.1 (Claude)
 -- Drives the custom shape-key channels of a character mod's head mesh. The mod ships
 -- reframework/data/RE4R_ShapeKeySystem_profile.json (key ids, hashes, labels, regions).
 -- Channels are bound by engine name hash, never by index. Native Leon channels in the same mesh
 -- (zero-delta "taps") are only read, never written.
-local VERSION = '0.4.4'
+local VERSION = '0.4.5-rc.1'
 local DIAG_FILE = 'RE4R_ShapeKeySystem_diag.json'
 local PROFILE_FILE = 'RE4R_ShapeKeySystem_profile.json'
 local SETTINGS_FILE = 'RE4R_ShapeKeySystem_settings.json'
@@ -20,6 +20,7 @@ local SOURCES = {'手动', '原生动画', '原生动画 + 手动微调', '面�
 local cap = {values = {}, active = false, seq = -1, gains = {}, gains_at = -1000, status = '未读取'}
 local CAP_TIMEOUT_MS = 500
 local native_map, nat = nil, {}           -- conversion table; per-frame native weights by key id
+local native_file, native_error = NATIVE_FILE, nil
 local presets = {}
 local bind = nil
 local status, last_error = '正在读取配置。', nil
@@ -51,6 +52,16 @@ local function copy(t) local o = {} for k, v in pairs(t) do o[k] = type(v) == 't
 local function try(fn, ...) local ok, a, b, c = pcall(fn, ...) if ok then return true, a, b, c end return false end
 
 ------------------------------------------------------------------ profile / settings
+local function load_native()
+    native_map, native_error = nil, nil
+    native_file = profile and profile.native_map_file or NATIVE_FILE
+    if type(native_file) ~= 'string' or not native_file:match('^[%w_%-]+%.json$') then
+        native_error = 'native_map_file 必须是 data 目录内的 JSON 文件名'; return
+    end
+    local ok, nm = pcall(json.load_file, native_file)
+    if ok and type(nm) == 'table' and type(nm.rules) == 'table' and type(nm.joints) == 'table' then native_map = nm
+    else native_error = '原生映射读取失败：' .. native_file end
+end
 local function load_profile()
     local ok, p = pcall(json.load_file, PROFILE_FILE)
     if not ok or type(p) ~= 'table' or type(p.keys) ~= 'table' then
@@ -66,6 +77,7 @@ local function load_profile()
         taps[#taps + 1] = {name = t.name, short = (t.name:gsub('^Face__geo__p000_cbs%.crct_', '')), hash = t.hash, ch = nil}
     end
     regions = p.regions or {}
+    load_native()
     return true
 end
 local function save_settings()
@@ -84,8 +96,7 @@ local function load_settings()
         if type(d.region) == 'table' then for k, v in pairs(d.region) do if finite(v) then S.region[k] = v end end end
         if type(d.values) == 'table' then for k, v in pairs(d.values) do if finite(v) then S.values[k] = v end end end
     end
-    local okn, nm = pcall(json.load_file, NATIVE_FILE)
-    if okn and type(nm) == 'table' and type(nm.rules) == 'table' and type(nm.joints) == 'table' then native_map = nm end
+    load_native()
     local okp, p = pcall(json.load_file, PRESET_FILE)
     if okp and type(p) == 'table' then presets = p end
 end
@@ -165,7 +176,9 @@ local function refresh_limit()
         local wl = call(e.mesh, 'get_ChannelWeightList')
         local wll = wl and tonumber(call(wl, 'get_Length'))
         e.weight_count, e.weight_list = wc, wll
-        e.limit = math.min(finite(wc) and wc or 0, finite(wll) and wll or e.count, e.count)
+        local cn = tonumber(call(e.mesh, 'get_BlendShapeChannelNum'))
+        e.limit = math.max(0, math.floor(math.min(finite(wc) and wc or 0, finite(wll) and wll or 0,
+            finite(cn) and cn or 0, e.count)))
     end
     local p = bind.meshes[1]
     bind.weight_count, bind.weight_list, bind.limit = p.weight_count, p.weight_list, p.limit
@@ -180,6 +193,33 @@ local function refresh_limit()
     if #bind.meshes > 1 then status = status .. string.format(' 另有 %d 个网格（身体/头发）。', #bind.meshes - 1) end
     if unbound > 0 then status = status .. string.format(' %d 个键未找到所在网格（对应模块未启用？）。', unbound) end
     if blocked > 0 then status = status .. string.format(' 警告：%d 个键超出权重数组，已禁止写入。', blocked) end
+end
+-- Read failures and bounds failures are distinct from a confirmed zero weight.
+local function read_weight(e, ch)
+    if not e or ch == nil then return nil, 'unbound' end
+    local cn = tonumber(call(e.mesh, 'get_BlendShapeChannelNum'))
+    local wc = tonumber(call(e.mesh, 'get_BlendShapeChannelWeightCount'))
+    local wl = call(e.mesh, 'get_ChannelWeightList')
+    local length = wl and tonumber(call(wl, 'get_Length'))
+    if not finite(cn) or not finite(wc) or not finite(length) then return nil, 'bounds_unavailable' end
+    if ch < 0 or ch >= math.min(cn, wc, length, e.count) then return nil, 'out_of_bounds' end
+    local value = tonumber(call(e.mesh, 'getBlendShapeChannelWeightParam', ch))
+    if not finite(value) then return nil, 'read_failed' end
+    return value, 'ok'
+end
+local function native_tap_status()
+    local out = {}
+    for _, t in ipairs(taps) do
+        local value, state = read_weight(bind and bind.meshes[1], t.ch)
+        out[#out + 1] = {name = t.name, short = t.short, hash = t.hash, channel = t.ch,
+            bound = t.ch ~= nil, state = state, value = value}
+    end
+    return out
+end
+local function native_key(k)
+    if type(k.id) == 'string' and k.id:match('^Face__geo__') then return true end
+    for _, t in ipairs(taps) do if k.hash == t.hash then return true end end
+    return false
 end
 local function attach_extras()
     if not bind then return end
@@ -261,7 +301,8 @@ end
 -- Only when the managed weight list already has every channel; true when the count now covers all channels.
 local function allocate_mesh(e)
     local wl = call(e.mesh, 'get_ChannelWeightList'); local n = wl and tonumber(call(wl, 'get_Length'))
-    if not finite(n) or n < e.count then return false end
+    local cn = tonumber(call(e.mesh, 'get_BlendShapeChannelNum'))
+    if not finite(n) or not finite(cn) or cn ~= e.count or n < e.count then return false end
     local ok, err = pcall(function() e.mesh:call('set_BlendShapeChannelWeightCount', e.count) end)
     if not ok then last_error = 'set_BlendShapeChannelWeightCount 失败：' .. tostring(err); return false end
     local wc = tonumber(call(e.mesh, 'get_BlendShapeChannelWeightCount'))
@@ -289,17 +330,12 @@ local function write_all(force_zero)
     -- 0.4.3: 0.4.2 tried once against a cached list length (still 0 at bind time) and never again; now the list
     -- length is read live and the attempt repeats every second while the count is short.
     allocate_extras(false)
-    for _, e in ipairs(bind.meshes) do
-        local wc = tonumber(call(e.mesh, 'get_BlendShapeChannelWeightCount'))
-        if not finite(wc) then wc = 0 end
-        if wc ~= e.weight_count then refresh_limit() end
-        if wc < e.limit then e.limit = wc end
-    end
+    refresh_limit()
     for _, k in ipairs(keys) do
         local e = k.ch and bind.meshes[k.mi]
         if e then
             local w = force_zero and 0 or target_weight(k)
-            if k.ch < e.limit and (w ~= 0 or e.written[k.ch] ~= 0) then
+            if not native_key(k) and k.ch < e.limit and (w ~= 0 or e.written[k.ch] ~= 0) then
                 local ok = pcall(function() e.mesh:call('setBlendShapeChannelWeightParam', k.ch, w) end)
                 if not ok then unbind('写入失败，已解除绑定，稍后自动重试。'); return end
                 e.written[k.ch] = w
@@ -401,10 +437,8 @@ local function sig_sample()
             if c then for i = 1, 7 do s.j[#s.j + 1] = r5(c[i]) end else for _ = 1, 7 do s.j[#s.j + 1] = 0 end end
         end
         for _, tp in ipairs(taps) do
-            if tp.ch then
-                local w = tonumber(call(bind.mesh, 'getBlendShapeChannelWeightParam', tp.ch)) or 0
-                if w > 0.001 then s.taps[tp.short] = r5(w) end
-            end
+            local w = read_weight(bind.meshes[1], tp.ch)
+            if w and w > 0.001 then s.taps[tp.short] = r5(w) end
         end
         r.samples[#r.samples + 1] = s
         if t >= 90 then sig_save() end
@@ -436,14 +470,11 @@ local function joint_signal(name)
     local ang = 2 * math.atan(s, w) * 180 / math.pi
     return (x * a[1] + y * a[2] + z * a[3]) / s * ang
 end
-local tap_cache = {mesh_id = nil, ch = {}}
 local function native_convert()
     nat = {}
     if not native_map or not bind or S.source == 1 then return end
-    if tap_cache.mesh_id ~= bind.mesh_id then
-        tap_cache.mesh_id, tap_cache.ch = bind.mesh_id, {}
-        for _, tp in ipairs(taps) do if tp.ch then tap_cache.ch[tp.short] = tp.ch end end
-    end
+    local tap_by_name = {}
+    for _, tp in ipairs(taps) do tap_by_name[tp.short] = tp end
     local tapv = {}
     for _, r in ipairs(native_map.rules) do
         local s
@@ -453,11 +484,11 @@ local function native_convert()
             for _, tn in ipairs(r.taps) do
                 local v = tapv[tn]
                 if v == nil then
-                    local ch = tap_cache.ch[tn]
-                    v = ch and tonumber(call(bind.mesh, 'getBlendShapeChannelWeightParam', ch)) or 0
+                    local tp = tap_by_name[tn]
+                    v = tp and read_weight(bind.meshes[1], tp.ch)
                     tapv[tn] = v
                 end
-                if not s or v > s then s = v end
+                if finite(v) and (not s or v > s) then s = v end
             end
         end
         if s and finite(s) then
@@ -549,17 +580,15 @@ re.on_application_entry('PrepareRendering', function()
         if bind and frame % 10 == 0 then
             local tl = {}
             for _, t in ipairs(taps) do
-                if t.ch then
-                    local w = tonumber(call(bind.mesh, 'getBlendShapeChannelWeightParam', t.ch)) or 0
-                    if w > 0.01 then tl[#tl + 1] = {t.short, w} end
-                end
+                local w = read_weight(bind.meshes[1], t.ch)
+                if w and w > 0.01 then tl[#tl + 1] = {t.short, w} end
             end
             table.sort(tl, function(a, b) return a[2] > b[2] end)
             probe.taps = tl
             if not S.enabled then
                 local mx, who = 0, nil
                 for _, k in ipairs(keys) do
-                    local w = k.ch and tonumber(call(bind.meshes[k.mi].mesh, 'getBlendShapeChannelWeightParam', k.ch)) or 0
+                    local w = read_weight(k.mi and bind.meshes[k.mi], k.ch) or 0
                     if w > mx then mx, who = w, k.label end
                 end
                 probe.custom_max, probe.custom_name, probe.idle_frames = mx, who, probe.idle_frames + 10
@@ -749,7 +778,8 @@ end
 -- 0.4.1: Shinano game test showed body / hair meshes bound but their weight array never allocated (head 159/159).
 -- Dump what differs between the head and the extra meshes: components, blend-shape related getters, Mesh methods.
 local function dump_diag()
-    local out = {version = VERSION, meshes = {}, mesh_methods = {}}
+    local out = {version = VERSION, meshes = {}, mesh_methods = {}, native_map_file = native_file,
+        native_map_error = native_error, native_taps = native_tap_status()}
     local td = sdk.find_type_definition and sdk.find_type_definition('via.render.Mesh')
     if td then
         try(function()
@@ -804,8 +834,7 @@ local function page_debug()
             if (e.limit or 0) < e.count then
                 imgui.same_line()
                 if imgui.button(string.format('手动：设置 WeightCount = 通道数##sks_setwc%d', mi)) then
-                    local ok, err = pcall(function() e.mesh:call('set_BlendShapeChannelWeightCount', e.count) end)
-                    if not ok then last_error = 'set_BlendShapeChannelWeightCount 失败：' .. tostring(err) end
+                    if not allocate_mesh(e) then last_error = '权重列表未准备好，未初始化 WeightCount。' end
                     refresh_limit()
                 end
             end
@@ -813,6 +842,13 @@ local function page_debug()
         if imgui.button('导出网格诊断到 reframework/data/' .. DIAG_FILE .. '##sks_diag') then dump_diag() end
     end
     imgui.separator()
+    imgui.text('原生映射：' .. tostring(native_file))
+    if native_error then imgui.text('映射错误：' .. native_error) end
+    imgui.text('选中接收口（未选通道不要求绑定）：')
+    for _, t in ipairs(native_tap_status()) do
+        imgui.text(string.format('%s | hash=%s | ch=%s | %s | %s', t.short, tostring(t.hash),
+            tostring(t.channel), t.state, t.value ~= nil and string.format('%.4f', t.value) or '未确认'))
+    end
     imgui.text('原生动画写入的原版通道（只读，权重 > 0.01）：')
     if #probe.taps == 0 then imgui.text('  （当前没有）') end
     for i = 1, math.min(10, #probe.taps) do
@@ -905,20 +941,22 @@ re.on_frame(function()
     if open == false then S.show_window = false; touch_settings() end
 end)
 
--- 0.4.4 public interface for other REFramework scripts (e.g. the desktop GUI bridge):
+-- 0.4.5-rc.1 public interface for other REFramework scripts (e.g. the desktop GUI bridge):
 --   local api = rawget(_G, 'RE4R_ShapeKeySystem_api')
 --   api.mesh_status()            -> { {index, name, channels, weight_count, weight_list, limit, ready}, ... } (index 1 = head)
 --   api.allocate_weights(i)      -> number of meshes now sized; i = mesh index (> 1), nil = all body / hair meshes
 --   api.get_auto_allocate() / api.set_auto_allocate(bool)   (saved in the settings file)
 RE4R_ShapeKeySystem_api = {
     version = VERSION,
+    native_tap_status = native_tap_status,
+    native_map_status = function() return {file = native_file, loaded = native_map ~= nil, error = native_error} end,
     mesh_status = function()
         local out = {}
         for mi, e in ipairs(bind and bind.meshes or {}) do
             local wc = tonumber(call(e.mesh, 'get_BlendShapeChannelWeightCount'))
             local wl = call(e.mesh, 'get_ChannelWeightList')
             out[mi] = {index = mi, name = tostring(call(e.go, 'get_Name') or '?'), channels = e.count, weight_count = wc,
-                weight_list = wl and tonumber(call(wl, 'get_Length')), limit = e.limit or 0, ready = finite(wc) and wc >= e.count}
+                weight_list = wl and tonumber(call(wl, 'get_Length')), limit = e.limit or 0, ready = (e.limit or 0) >= e.count}
         end
         return out
     end,

@@ -1,0 +1,666 @@
+{
+  "format": 1,
+  "rig": "Leon cha000 face joints",
+  "joints": {
+    "C_Chin": {
+      "kind": "pos",
+      "axis": [
+        0.0036449625835887887,
+        0.9625660825932583,
+        0.27102260217338237
+      ],
+      "neutral": [
+        0.00121,
+        -0.03675,
+        0.09158,
+        0.10145004184307839,
+        0.0011100004578197833,
+        -0.01089000449158328,
+        0.9947804102972648
+      ]
+    },
+    "C_LowerLip": {
+      "kind": "pos",
+      "axis": [
+        -0.007111434189166443,
+        -0.9912567695777629,
+        -0.1317552438046829
+      ],
+      "neutral": [
+        0.00059,
+        -0.00029,
+        0.06742,
+        -0.20280914421820012,
+        0.005619976285717098,
+        0.03387985703916286,
+        0.9786158705922539
+      ]
+    },
+    "L_D_Eyelid3": {
+      "kind": "rot",
+      "axis": [
+        0.40902789951424834,
+        -0.8966188195636987,
+        0.16961978016481988
+      ],
+      "neutral": [
+        0.0293,
+        -0.01772,
+        0.05565,
+        0.12542031665534423,
+        -0.5798414639565842,
+        -0.1701904296888298,
+        0.7868219865313182
+      ]
+    },
+    "L_Eye.pitch": {
+      "bone": "L_Eye",
+      "kind": "rot",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "neutral": [
+        0.0293,
+        -0.01772,
+        0.05565,
+        0.013470015805725818,
+        0.018870022142096973,
+        -0.0002500002933505163,
+        0.9997311730852467
+      ]
+    },
+    "L_Eye.yaw": {
+      "bone": "L_Eye",
+      "kind": "rot",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "neutral": [
+        0.0293,
+        -0.01772,
+        0.05565,
+        0.013470015805725818,
+        0.018870022142096973,
+        -0.0002500002933505163,
+        0.9997311730852467
+      ]
+    },
+    "L_U_Eyelid3": {
+      "kind": "rot",
+      "axis": [
+        -0.007120013677258967,
+        0.12416747095368208,
+        -0.9922357303394203
+      ],
+      "neutral": [
+        0.0293,
+        -0.01772,
+        0.05565,
+        -0.0364999017861964,
+        -0.6287583081394206,
+        0.045019878860672935,
+        0.7754379134544697
+      ]
+    },
+    "R_D_Eyelid3": {
+      "kind": "rot",
+      "axis": [
+        0.4007476602889995,
+        -0.9128967190778374,
+        0.07759441390855812
+      ],
+      "neutral": [
+        -0.03216,
+        -0.01922,
+        0.05673,
+        0.16898031286733892,
+        -0.7732914317504114,
+        -0.13046024154736083,
+        0.597031105404115
+      ]
+    },
+    "R_Eye.pitch": {
+      "bone": "R_Eye",
+      "kind": "rot",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "neutral": [
+        -0.03216,
+        -0.01922,
+        0.05673,
+        0.017359927420899167,
+        -0.03981983351959705,
+        0.0006899971152315912,
+        0.9990558231061936
+      ]
+    },
+    "R_Eye.yaw": {
+      "bone": "R_Eye",
+      "kind": "rot",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "neutral": [
+        -0.03216,
+        -0.01922,
+        0.05673,
+        0.017359927420899167,
+        -0.03981983351959705,
+        0.0006899971152315912,
+        0.9990558231061936
+      ]
+    },
+    "R_U_Eyelid3": {
+      "kind": "rot",
+      "axis": [
+        0.014076367001077497,
+        0.10514668965222906,
+        -0.9943570935771662
+      ],
+      "neutral": [
+        -0.03216,
+        -0.01922,
+        0.05673,
+        -0.03384000189165616,
+        -0.7747500433085286,
+        0.027550001540045128,
+        0.6307600352594869
+      ]
+    }
+  },
+  "rules": [
+    {
+      "key": "eyeBlinkLeft",
+      "joint": "L_U_Eyelid3",
+      "lo": 3,
+      "hi": 28,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeBlinkRight",
+      "joint": "R_U_Eyelid3",
+      "lo": 3,
+      "hi": 27,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeSquintLeft",
+      "joint": "L_D_Eyelid3",
+      "lo": 2,
+      "hi": 12,
+      "gain": 0.6
+    },
+    {
+      "key": "eyeSquintRight",
+      "joint": "R_D_Eyelid3",
+      "lo": 2,
+      "hi": 12,
+      "gain": 0.6
+    },
+    {
+      "key": "jawOpen",
+      "joint": "C_Chin",
+      "lo": 0.8,
+      "hi": 8.0,
+      "gain": 1.0
+    },
+    {
+      "key": "jawOpen",
+      "joint": "C_LowerLip",
+      "lo": 5.5,
+      "hi": 10.5,
+      "gain": 0.35
+    },
+    {
+      "key": "mouthLowerDownLeft",
+      "joint": "C_LowerLip",
+      "lo": 1.0,
+      "hi": 9.0,
+      "gain": 0.5
+    },
+    {
+      "key": "mouthLowerDownRight",
+      "joint": "C_LowerLip",
+      "lo": 1.0,
+      "hi": 9.0,
+      "gain": 0.5
+    },
+    {
+      "key": "jawOpen",
+      "taps": [
+        "jaw_openExtreme"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.008
+    },
+    {
+      "key": "browDownLeft",
+      "taps": [
+        "brow_lower_L"
+      ],
+      "lo": 0.574,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.554
+    },
+    {
+      "key": "browDownRight",
+      "taps": [
+        "brow_lower_R"
+      ],
+      "lo": 0.574,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.554
+    },
+    {
+      "key": "browInnerUp",
+      "taps": [
+        "brow_raiseInner_L",
+        "brow_raiseInner_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.008
+    },
+    {
+      "key": "browOuterUpLeft",
+      "taps": [
+        "brow_raiseOuter_L"
+      ],
+      "lo": 0.061,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.041
+    },
+    {
+      "key": "browOuterUpRight",
+      "taps": [
+        "brow_raiseOuter_R"
+      ],
+      "lo": 0.127,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.107
+    },
+    {
+      "key": "eyeSquintLeft",
+      "taps": [
+        "eye_squintInner_L",
+        "eye_squeeze_L"
+      ],
+      "lo": 0.164,
+      "hi": 1.0,
+      "gain": 0.7,
+      "rest_idle": 0.144
+    },
+    {
+      "key": "eyeSquintRight",
+      "taps": [
+        "eye_squintInner_R",
+        "eye_squeeze_R"
+      ],
+      "lo": 0.123,
+      "hi": 1.0,
+      "gain": 0.7,
+      "rest_idle": 0.103
+    },
+    {
+      "key": "cheekSquintLeft",
+      "taps": [
+        "eye_cheekRaise_L"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.003
+    },
+    {
+      "key": "cheekSquintRight",
+      "taps": [
+        "eye_cheekRaise_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.003
+    },
+    {
+      "key": "noseSneerLeft",
+      "taps": [
+        "nose_wrinkleNose_L",
+        "nose_wrinkleBrows_L"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "noseSneerRight",
+      "taps": [
+        "nose_wrinkleNose_R",
+        "nose_wrinkleBrows_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "cheekPuff",
+      "taps": [
+        "mouth_cheekBlow_L",
+        "mouth_cheekBlow_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthSmileLeft",
+      "taps": [
+        "mouth_lipsCornerPuller_L",
+        "mouth_sharpCornerPull_L"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthSmileRight",
+      "taps": [
+        "mouth_lipsCornerPuller_R",
+        "mouth_sharpCornerPull_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthFrownLeft",
+      "taps": [
+        "mouth_cornerDepress_L"
+      ],
+      "lo": 0.035,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.015
+    },
+    {
+      "key": "mouthFrownRight",
+      "taps": [
+        "mouth_cornerDepress_R"
+      ],
+      "lo": 0.035,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.015
+    },
+    {
+      "key": "mouthDimpleLeft",
+      "taps": [
+        "mouth_dimple_L"
+      ],
+      "lo": 0.098,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.078
+    },
+    {
+      "key": "mouthDimpleRight",
+      "taps": [
+        "mouth_dimple_R"
+      ],
+      "lo": 0.082,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.062
+    },
+    {
+      "key": "mouthStretchLeft",
+      "taps": [
+        "mouth_stretch_L",
+        "mouth_stretchLipsFollow_L"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthStretchRight",
+      "taps": [
+        "mouth_stretch_R",
+        "mouth_stretchLipsFollow_R"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthPucker",
+      "taps": [
+        "mouth_purse_L_U",
+        "mouth_purse_L_D",
+        "mouth_purse_R_U",
+        "mouth_purse_R_D",
+        "mouth_lipsPucker_L_U",
+        "mouth_lipsPucker_L_D",
+        "mouth_lipsPucker_R_U",
+        "mouth_lipsPucker_R_D",
+        "mouth_towards_L_U",
+        "mouth_towards_L_D",
+        "mouth_towards_R_U",
+        "mouth_towards_R_D",
+        "mouth_puckerFunnel_L_U",
+        "mouth_puckerFunnel_L_D",
+        "mouth_puckerFunnel_R_U",
+        "mouth_puckerFunnel_R_D"
+      ],
+      "lo": 0.035,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.015
+    },
+    {
+      "key": "mouthFunnel",
+      "taps": [
+        "mouth_funnel_L_U",
+        "mouth_funnel_L_D",
+        "mouth_funnel_R_U",
+        "mouth_funnel_R_D",
+        "mouth_towardsFunnel_L_U",
+        "mouth_towardsFunnel_L_D",
+        "mouth_towardsFunnel_R_U",
+        "mouth_towardsFunnel_R_D",
+        "mouth_purseFunnel_L_U",
+        "mouth_purseFunnel_L_D",
+        "mouth_purseFunnel_R_U",
+        "mouth_purseFunnel_R_D"
+      ],
+      "lo": 0.064,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.044
+    },
+    {
+      "key": "mouthPressLeft",
+      "taps": [
+        "mouth_lipsPress_L_U",
+        "mouth_lipsPress_L_D",
+        "mouth_press_L_U",
+        "mouth_press_L_D",
+        "mouth_lipsTighten_L_U",
+        "mouth_lipsTighten_L_D"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthPressRight",
+      "taps": [
+        "mouth_lipsPress_R_U",
+        "mouth_lipsPress_R_D",
+        "mouth_press_R_U",
+        "mouth_press_R_D",
+        "mouth_lipsTighten_R_U",
+        "mouth_lipsTighten_R_D"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthClose",
+      "taps": [
+        "mouth_lipsTogether_L_U",
+        "mouth_lipsTogether_L_D",
+        "mouth_lipsTogether_R_U",
+        "mouth_lipsTogether_R_D"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthRollLower",
+      "taps": [
+        "mouth_lipsBite_L_D",
+        "mouth_lipsBite_R_D"
+      ],
+      "lo": 0.046,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.026
+    },
+    {
+      "key": "mouthRollUpper",
+      "taps": [
+        "mouth_lipsBite_L_U",
+        "mouth_lipsBite_R_U"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 1.0,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthUpperUpLeft",
+      "taps": [
+        "mouth_lipsAparts_L_U"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 0.6,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthUpperUpRight",
+      "taps": [
+        "mouth_lipsAparts_R_U"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 0.6,
+      "rest_idle": 0.0
+    },
+    {
+      "key": "mouthLowerDownLeft",
+      "taps": [
+        "mouth_lipsAparts_L_D"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 0.6,
+      "rest_idle": 0.007
+    },
+    {
+      "key": "mouthLowerDownRight",
+      "taps": [
+        "mouth_lipsAparts_R_D"
+      ],
+      "lo": 0.0,
+      "hi": 1.0,
+      "gain": 0.6,
+      "rest_idle": 0.007
+    },
+    {
+      "key": "eyeLookOutLeft",
+      "joint": "L_Eye.yaw",
+      "lo": 1,
+      "hi": 25,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookInLeft",
+      "joint": "L_Eye.yaw",
+      "lo": -1,
+      "hi": -25,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookInRight",
+      "joint": "R_Eye.yaw",
+      "lo": 1,
+      "hi": 25,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookOutRight",
+      "joint": "R_Eye.yaw",
+      "lo": -1,
+      "hi": -25,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookDownLeft",
+      "joint": "L_Eye.pitch",
+      "lo": 1,
+      "hi": 20,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookDownRight",
+      "joint": "R_Eye.pitch",
+      "lo": 1,
+      "hi": 20,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookUpLeft",
+      "joint": "L_Eye.pitch",
+      "lo": -1,
+      "hi": -20,
+      "gain": 1.0
+    },
+    {
+      "key": "eyeLookUpRight",
+      "joint": "R_Eye.pitch",
+      "lo": -1,
+      "hi": -20,
+      "gain": 1.0
+    }
+  ],
+  "note": "Generic Leon rig calibration. Joint pos: millimetres; joint rot: degrees; tap: normalized weight. Per-key sum clamped 0..1. Model-specific retargeting is supplied by the MOD."
+}

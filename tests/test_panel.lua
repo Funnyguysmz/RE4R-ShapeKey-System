@@ -23,7 +23,7 @@ local mesh = obj({
     get_UseBlendShapeNormal = function() return true end,
     get_BlendShapeChannelWeightCount = function() return WEIGHT_COUNT or #F.order end,
     set_BlendShapeChannelWeightCount = function(n) WEIGHT_COUNT = n end,
-    get_ChannelWeightList = function() return obj({get_Length = function() return WEIGHT_COUNT or #F.order end}, 300) end}, 200)
+    get_ChannelWeightList = function() return obj({get_Length = function() return #F.order end}, 300) end}, 200)
 JOINT = {}
 local function joint(name)
     JOINT[name] = JOINT[name] or {p = {x = 0, y = 0, z = 0}, q = {x = 0, y = 0, z = 0, w = 1}}
@@ -253,7 +253,7 @@ check(seen_has('接收器未启动'), 'receiver-stopped status shown')
 -- 0.4.4 api: cap_smooth get/set
 do
     local api = rawget(_G, 'RE4R_ShapeKeySystem_api')
-    check(api.version == '0.4.4', 'api.version 0.4.4 (got ' .. tostring(api.version) .. ')')
+    check(api.version == '0.4.5-rc.1', 'api.version matches local test candidate')
     check(math.abs(api.get_cap_smooth() - 0.5) < 1e-9, 'cap_smooth default 0.5 (got ' .. tostring(api.get_cap_smooth()) .. ')')
     check(api.set_cap_smooth(0.8) == true and math.abs(api.get_cap_smooth() - 0.8) < 1e-9, 'set_cap_smooth 0.8')
     api.set_cap_smooth(5); check(api.get_cap_smooth() == 1, 'set_cap_smooth clamps high to 1')
